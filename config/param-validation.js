@@ -26,5 +26,30 @@ export default {
       username: Joi.string().required(),
       password: Joi.string().required()
     }
+  },
+
+  // POST /api/builds
+  createBuild: {
+    body: {
+      draft: Joi.boolean(),
+      name: Joi.string().required(),
+      image: Joi.string().hex().required(),
+      desc: Joi.string().required(),
+      category: Joi.string().regex(/^[a-z]*$/).required(),
+    }
+  },
+
+  // UPDATE /api/builds/:buildId
+  updateBuild: {
+    body: {
+      draft: Joi.boolean(),
+      name: Joi.string().required(),
+      image: Joi.string().hex().required(),
+      desc: Joi.string().required(),
+      category: Joi.string().regex(/^[a-z]*$/).required(),
+    },
+    params: {
+      buildId: Joi.string().hex().required()
+    }
   }
 };
