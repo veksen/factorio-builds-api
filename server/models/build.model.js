@@ -55,10 +55,17 @@ BuildSchema.statics = {
    * List builds in descending order of 'createdAt' timestamp.
    * @param {number} skip - Number of builds to be skipped.
    * @param {number} limit - Limit number of builds to be returned.
+   * @param {number} withDrafts - Include drafts in results.
    * @returns {Promise<Build[]>}
    */
-  list({ skip = 0, limit = 50 } = {}) {
-    return this.find()
+  list({ skip = 0, limit = 50, withDrafts = false } = {}) {
+    const query = withDrafts === false ? {
+      $or: [
+        { draft: false },
+        { draft: { $exists: false } },
+      ]
+    } : {};
+    return this.find(query)
       .sort({ createdAt: -1 })
       .skip(+skip)
       .limit(+limit)
