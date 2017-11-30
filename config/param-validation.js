@@ -33,7 +33,7 @@ export default {
     body: {
       draft: Joi.boolean(),
       name: Joi.string().required(),
-      image: Joi.string().hex().required(),
+      image: Joi.when('draft', { is: true, then: Joi.string().hex().required() }),
       desc: Joi.string().required(),
       category: Joi.string().regex(/^[a-z]*$/).required(),
     }
@@ -44,7 +44,7 @@ export default {
     body: {
       draft: Joi.boolean(),
       name: Joi.string().required(),
-      image: Joi.string().hex().required(),
+      image: Joi.when('draft', { is: true, then: Joi.string().hex().required() }),
       desc: Joi.string().required(),
       category: Joi.string().regex(/^[a-z]*$/).required(),
     },
