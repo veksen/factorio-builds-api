@@ -51,5 +51,30 @@ export default {
     params: {
       buildId: Joi.string().hex().required()
     }
+  },
+
+  // POST /api/blueprints
+  createBlueprint: {
+    body: {
+      name: Joi.string().required(),
+      order: Joi.number(),
+      desc: Joi.string(),
+      hash: Joi.string().required(),
+      build: Joi.string().hex().required(),
+    }
+  },
+
+  // UPDATE /api/blueprints/:blueprint
+  updateBlueprint: {
+    body: {
+      name: Joi.string().required(),
+      order: Joi.number(),
+      desc: Joi.string(),
+      hash: Joi.string().required(),
+      build: Joi.string().hex().required(),
+    },
+    params: {
+      blueprintId: Joi.string().hex().required()
+    }
   }
 };
